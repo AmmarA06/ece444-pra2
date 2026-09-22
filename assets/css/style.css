@@ -706,7 +706,84 @@ small {
   width: 100%;
 }
 
-/* Projects - Load More control */
+/* Projects - filter, search, and Load More controls */
+
+.sr-only {
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.project-controls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.project-search {
+  flex: 1 1 260px;
+}
+
+.project-search input[type="search"] {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+  height: 42px;
+  padding: 0 14px;
+  width: 100%;
+}
+
+.project-search input[type="search"]:focus {
+  border-color: #1565C0;
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.2);
+  outline: none;
+}
+
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-filter {
+  background: #fff;
+  border: 1px solid #1565C0;
+  border-radius: 16px;
+  color: #1565C0;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  padding: 8px 14px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.project-filter:hover {
+  background: rgba(21, 101, 192, 0.08);
+}
+
+.project-filter.is-active {
+  background: #1565C0;
+  color: #fff;
+}
+
+.project-filter:focus-visible,
+.project-search input[type="search"]:focus-visible {
+  outline: 2px solid #0D47A1;
+  outline-offset: 2px;
+}
+
+.project-empty {
+  padding: 20px 0;
+  text-align: center;
+}
 
 .project-actions {
   padding-bottom: 20px;
@@ -721,6 +798,7 @@ small {
   background-color: #0D47A1;
 }
 
-#load-more[hidden] {
+#load-more[hidden],
+.project-empty[hidden] {
   display: none;
 }

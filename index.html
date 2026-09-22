@@ -355,8 +355,22 @@
       <h3 class="page-title white-text teal">Projects</h3>
       <div class="container">
 
+        <!-- Filter and search controls -->
+        <div class="project-controls">
+          <label class="project-search">
+            <span class="sr-only">Search projects</span>
+            <input id="project-search" type="search" placeholder="Search projects, tools, keywords&hellip;"
+              autocomplete="off" />
+          </label>
+          <div id="project-filters" class="project-filters" role="group" aria-label="Filter projects by tag"></div>
+        </div>
+
         <!-- Projects are rendered into this container by assets/js/projects.js -->
         <div id="project-list" class="row"></div>
+
+        <p id="project-empty" class="project-empty grey-text" hidden>
+          No projects match that filter. Try a different tag or search term.
+        </p>
 
         <div class="project-actions">
           <button id="load-more" type="button" class="btn waves-effect waves-light">Load More</button>
@@ -646,7 +660,7 @@
     })
   </script>
 
-  <!-- Projects: dynamic rendering -->
+  <!-- Projects: dynamic rendering, filtering, and search -->
   <script src="assets/js/projects.js"></script>
 </body>
 

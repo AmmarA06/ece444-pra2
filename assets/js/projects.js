@@ -1,5 +1,5 @@
 /*
- * Projects: dynamic rendering.
+ * Projects: dynamic rendering, tag filtering, and search.
  *
  * Cards are built from the `projects` array below rather than being written
  * out in index.html, so adding a project means adding one object here.
@@ -15,6 +15,7 @@
       image: 'assets/img/projects/samcraft.jpg',
       alt: 'SAMCraft turning a photo into a Minecraft build',
       blurb: 'Turns photos into Minecraft builds &mdash; click an object, get a schematic.',
+      tags: ['Computer Vision', '3D'],
       details: [
         '<b>Tools:</b> Python, SAM 2, image-to-3D, voxelization',
         "Click any object in an image and it's segmented with SAM 2, then reconstructed into a 3D mesh.",
@@ -29,6 +30,7 @@
       image: 'assets/img/projects/discovery.jpg',
       alt: 'Discovery pan-tilt tracking system',
       blurb: 'A 2-axis pan-tilt vision rig for high-precision 3D interaction tracking.',
+      tags: ['Computer Vision', 'Hardware'],
       details: [
         '<b>Tools:</b> Grounding DINO, LiDAR, FastAPI, SQLite, React, Framer Motion',
         'A servo-driven pan-tilt mount expands the effective field of view of an Xbox Kinect for 3D tracking.',
@@ -43,6 +45,7 @@
       image: 'assets/img/projects/shop3d.jpg',
       alt: 'Shop3D interactive product viewer',
       blurb: 'A Shopify app that turns flat product photos into interactive 3D models.',
+      tags: ['3D', 'Web'],
       details: [
         '<b>Tools:</b> GraphQL, FastAPI, three.js, Celery, TripoSR, Redis, SQL',
         'Customers can rotate, zoom, and inspect products directly on the storefront.',
@@ -57,6 +60,7 @@
       image: 'assets/img/projects/synthra.jpg',
       alt: 'Synthra browser extension',
       blurb: 'A browser extension that turns any webpage into study-ready notes.',
+      tags: ['AI', 'Web'],
       details: [
         '<b>Tools:</b> Chrome Extension APIs, Gemini, Notion API, Python',
         'Extracts and restructures page content into organized notes rather than a flat summary.',
@@ -70,6 +74,7 @@
       image: 'assets/img/projects/rift-rewind.jpg',
       alt: 'Rift Rewind year in review',
       blurb: 'A League of Legends year-in-review that coaches as much as it celebrates.',
+      tags: ['AI', 'Data Viz'],
       details: [
         '<b>Tools:</b> React, AWS, Bedrock, Flask, D3.js, Riot API',
         'Blends data visualization with generated coaching feedback across a full season of matches.',
@@ -83,6 +88,7 @@
       image: 'assets/img/projects/codetype.png',
       alt: 'CodeType typing test',
       blurb: 'Monkeytype, but for programming languages.',
+      tags: ['Web'],
       details: [
         '<b>Tools:</b> React, TypeScript, Vite, Supabase',
         'Typing practice on real code, where the brackets and symbols are the hard part.',
@@ -96,13 +102,40 @@
   var PAGE_SIZE = 2;
 
   var list = document.getElementById('project-list');
+  var filters = document.getElementById('project-filters');
+  var search = document.getElementById('project-search');
   var loadMore = document.getElementById('load-more');
+  var empty = document.getElementById('project-empty');
 
   if (!list || !loadMore) {
     return;
   }
 
   var visibleCount = PAGE_SIZE;
+  var activeTag = 'All';
+  var query = '';
+
+  // Strip markup so <b> and <code> in details don't produce false search hits.
+  function plain(html) {
+    return String(html).replace(/<[^>]*>/g, ' ');
+  }
+
+  function haystack(project) {
+    return [project.title, project.blurb, project.tags.join(' '), project.details.join(' ')]
+      .map(plain)
+      .join(' ')
+      .toLowerCase();
+  }
+
+  function matches(project) {
+    var tagOk = activeTag === 'All' || project.tags.indexOf(activeTag) !== -1;
+    var queryOk = query === '' || haystack(project).indexOf(query) !== -1;
+    return tagOk && queryOk;
+  }
+
+  function visibleProjects() {
+    return projects.filter(matches);
+  }
 
   function actionLink(href, label, tooltip, icon) {
     return '<a aria-label="' + label + '" href="' + href + '" target="_blank" data-position="top" ' +
@@ -144,25 +177,67 @@
       '</div>';
   }
 
+  function renderFilters() {
+    var tags = ['All'];
+    projects.forEach(function (project) {
+      project.tags.forEach(function (tag) {
+        if (tags.indexOf(tag) === -1) {
+          tags.push(tag);
+        }
+      });
+    });
+
+    filters.innerHTML = tags.map(function (tag) {
+      var isActive = tag === activeTag;
+      return '<button type="button" class="project-filter' + (isActive ? ' is-active' : '') +
+        '" data-tag="' + tag + '" aria-pressed="' + isActive + '">' + tag + '</button>';
+    }).join('');
+  }
+
   function render() {
-    var slice = projects.slice(0, visibleCount);
+    var shown = visibleProjects();
+    var slice = shown.slice(0, visibleCount);
 
     list.innerHTML = slice.map(cardHtml).join('');
+    empty.hidden = shown.length !== 0;
 
     // Materialize binds tooltips once on ready, so freshly injected ones need it again.
     if (window.jQuery) {
       window.jQuery('#project-list .tooltipped').tooltip();
     }
 
-    // Hide the button once everything is on screen.
-    loadMore.hidden = projects.length <= visibleCount;
-    loadMore.textContent = 'Load More (' + (projects.length - slice.length) + ')';
+    // Requirement: hide the button once everything is on screen.
+    loadMore.hidden = shown.length <= visibleCount;
+    loadMore.textContent = 'Load More (' + (shown.length - slice.length) + ')';
+  }
+
+  function resetPaging() {
+    visibleCount = PAGE_SIZE;
+    render();
   }
 
   loadMore.addEventListener('click', function () {
-    visibleCount = projects.length;
+    visibleCount = visibleProjects().length;
     render();
   });
 
+  filters.addEventListener('click', function (event) {
+    var button = event.target.closest('.project-filter');
+    if (!button) {
+      return;
+    }
+    activeTag = button.getAttribute('data-tag');
+    renderFilters();
+    resetPaging();
+  });
+
+  if (search) {
+    search.addEventListener('input', function () {
+      query = search.value.trim().toLowerCase();
+      resetPaging();
+    });
+  }
+
+  renderFilters();
   render();
 })();
