@@ -705,3 +705,22 @@ small {
   display: block;
   width: 100%;
 }
+
+/* Projects - Load More control */
+
+.project-actions {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+#load-more {
+  background-color: #1565C0;
+}
+
+#load-more:hover {
+  background-color: #0D47A1;
+}
+
+#load-more[hidden] {
+  display: none;
+}

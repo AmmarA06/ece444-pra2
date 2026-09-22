@@ -354,215 +354,12 @@
     <section id="projects" class="section scrollspy">
       <h3 class="page-title white-text teal">Projects</h3>
       <div class="container">
-        <div class="row">
 
-          <!-- SAMCraft -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="SAMCraft turning a photo into a Minecraft build" src="assets/img/projects/samcraft.jpg"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">SAMCraft<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  Turns photos into Minecraft builds &mdash; click an object, get a schematic.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> Python, SAM 2, image-to-3D, voxelization</li>
-                  <li>Click any object in an image and it's segmented with SAM 2, then reconstructed into a 3D mesh.</li>
-                  <li>Voxelized into blocks using CIEDE2000 perceptual colour matching so the palette actually looks
-                    right in-game.</li>
-                  <li>Exports directly to <code>.schem</code> and <code>.litematic</code> schematics.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="Visit the GitHub repo for SAMCraft" href="https://github.com/AmmarA06/SAMCraft"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <!-- Projects are rendered into this container by assets/js/projects.js -->
+        <div id="project-list" class="row"></div>
 
-          <!-- Discovery -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="Discovery pan-tilt tracking system" src="assets/img/projects/discovery.jpg"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">Discovery<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  A 2-axis pan-tilt vision rig for high-precision 3D interaction tracking.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> Grounding DINO, LiDAR, FastAPI, SQLite, React, Framer Motion</li>
-                  <li>A servo-driven pan-tilt mount expands the effective field of view of an Xbox Kinect for 3D
-                    tracking.</li>
-                  <li>Custom vision pipeline identifies real-time interaction events and logs them into a spatial
-                    database.</li>
-                  <li>Front-end dashboard visualizes high-fidelity coordinate telemetry as it streams in.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="Visit the GitHub repo for Discovery" href="https://github.com/AmmarA06/Discovery"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Shop3D -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="Shop3D interactive product viewer" src="assets/img/projects/shop3d.jpg"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">Shop3D<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  A Shopify app that turns flat product photos into interactive 3D models.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> GraphQL, FastAPI, three.js, Celery, TripoSR, Redis, SQL</li>
-                  <li>Customers can rotate, zoom, and inspect products directly on the storefront.</li>
-                  <li>Reconstruction runs asynchronously through a Celery queue so the merchant isn't blocked
-                    waiting on a model.</li>
-                  <li>Integrates with the Shopify admin via GraphQL.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="Visit the GitHub repo for Shop3D" href="https://github.com/AmmarA06/Shop3D"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Synthra -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="Synthra browser extension" src="assets/img/projects/synthra.jpg"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">Synthra<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  A browser extension that turns any webpage into study-ready notes.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> Chrome Extension APIs, Gemini, Notion API, Python</li>
-                  <li>Extracts and restructures page content into organized notes rather than a flat summary.</li>
-                  <li>Pushes the result straight into Notion so notes land where you already work.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="Visit the GitHub repo for Synthra" href="https://github.com/AmmarA06/Synthra"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Rift Rewind -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="Rift Rewind year in review" src="assets/img/projects/rift-rewind.jpg"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">Rift Rewind<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  A League of Legends year-in-review that coaches as much as it celebrates.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> React, AWS, Bedrock, Flask, D3.js, Riot API</li>
-                  <li>Blends data visualization with generated coaching feedback across a full season of matches.</li>
-                  <li>Highlights measurable progress and points at concrete next steps for improvement.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="View Rift Rewind live" href="https://rift-rewind-kohl.vercel.app/" target="_blank"
-                    data-position="top" data-tooltip="View Online"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-external-link"></i></a>
-                  <a aria-label="Visit the GitHub repo for Rift Rewind" href="https://github.com/KenC2006/Rift_Rewind"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CodeType -->
-          <div class="col s12 m6 l4">
-            <div class="card medium">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img alt="CodeType typing test" src="assets/img/projects/codetype.png"
-                  style="height: 100%; width: 100%" class="activator" />
-              </div>
-              <div class="card-content">
-                <span class="card-title activator teal-text hoverline">CodeType<i
-                    class="mdi-navigation-more-vert right"></i></span>
-                <p>
-                  Monkeytype, but for programming languages.
-                </p>
-              </div>
-              <div class="card-reveal">
-                <span class="card-title grey-text"><small>Details</small><i
-                    class="mdi-navigation-close right"></i></span>
-                <ul>
-                  <li><b>Tools:</b> React, TypeScript, Vite, Supabase</li>
-                  <li>Typing practice on real code, where the brackets and symbols are the hard part.</li>
-                  <li>Tracks WPM and accuracy per language with persisted results.</li>
-                </ul>
-                <div class="card-action">
-                  <a aria-label="View CodeType live" href="https://code-type-ten.vercel.app" target="_blank"
-                    data-position="top" data-tooltip="View Online"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-external-link"></i></a>
-                  <a aria-label="Visit the GitHub repo for CodeType" href="https://github.com/AmmarA06/CodeType"
-                    target="_blank" data-position="top" data-tooltip="View Source"
-                    class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i
-                      class="fa fa-github"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="project-actions">
+          <button id="load-more" type="button" class="btn waves-effect waves-light">Load More</button>
         </div>
       </div>
     </section>
@@ -848,6 +645,9 @@
       })
     })
   </script>
+
+  <!-- Projects: dynamic rendering -->
+  <script src="assets/js/projects.js"></script>
 </body>
 
 </html>
